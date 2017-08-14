@@ -1,0 +1,1 @@
+# KetoHub Thumbnail Processor
