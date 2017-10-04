@@ -15,6 +15,8 @@ def main(args):
         os.makedirs(args.output_root)
     for recipe_key in os.listdir(args.input_root):
         image_path = os.path.join(args.input_root, recipe_key, 'main.jpg')
+        if not os.path.exists(image_path):
+            continue
         resized_path = os.path.join(args.output_root,
                                     recipe_key + '_thumbnail.jpg')
         image = Image.open(image_path)
