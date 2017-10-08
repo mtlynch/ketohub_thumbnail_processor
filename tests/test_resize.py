@@ -1,8 +1,6 @@
 import unittest
 
 import mock
-import PIL
-assert PIL  # workaround for pyflakes unused import warning
 
 from processor import resize
 
@@ -10,7 +8,7 @@ from processor import resize
 class ResizeTest(unittest.TestCase):
 
     def setUp(self):
-        mock_pil_patch = mock.patch('PIL.Image.open')
+        mock_pil_patch = mock.patch('processor.resize.Image.open')
         self.addCleanup(mock_pil_patch.stop)
         self.mock_pil = mock_pil_patch.start()
 

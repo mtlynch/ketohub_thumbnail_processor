@@ -1,6 +1,6 @@
 import logging
 
-import PIL
+from PIL import Image
 
 logger = logging.getLogger(__name__)
 
@@ -10,7 +10,7 @@ THUMBNAIL_RATIO = float(THUMBNAIL_WIDTH) / float(THUMBNAIL_HEIGHT)
 
 
 def resize(image_path, resized_path):
-    image = PIL.Image.open(image_path)
+    image = Image.open(image_path)
     x, y = image.size
     if (float(x) / float(y)) >= THUMBNAIL_RATIO:
         delta = x - (THUMBNAIL_RATIO * float(y))
