@@ -24,24 +24,23 @@ def main(args):
     configure_logging()
     if not os.path.exists(args.output_root):
         os.makedirs(args.output_root)
-    for root in args.input_root:
-        for recipe_key in os.listdir(root):
-            image_path = os.path.join(root, recipe_key, 'main.jpg')
-            logging.info('Processing %s', recipe_key)
-            if not os.path.exists(image_path):
-                logging.warning('No image file, skipping')
-                continue
+    for recipe_key in os.listdir(args.input_root):
+        image_path = os.path.join(args.input_root, recipe_key, 'main.jpg')
+        logging.info('Processing %s', recipe_key)
+        if not os.path.exists(image_path):
+            logging.warning('No image file, skipping')
+            continue
 
-            resized_path = os.path.join(args.output_root,
-                                        recipe_key + '_thumbnail.jpg')
-            resize.resize(image_path, resized_path)
-            logging.info('Saved resized image to %s', resized_path)
+        resized_path = os.path.join(args.output_root,
+                                    recipe_key + '_thumbnail.jpg')
+        resize.resize(image_path, resized_path)
+        logging.info('Saved resized image to %s', resized_path)
 
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(
         prog='KetoHub Thumbnail Processor',
         formatter_class=argparse.ArgumentDefaultsHelpFormatter)
-    parser.add_argument('-i', '--input_root', default=[], action='append')
+    parser.add_argument('-i', '--input_root')
     parser.add_argument('-o', '--output_root')
     main(parser.parse_args())
