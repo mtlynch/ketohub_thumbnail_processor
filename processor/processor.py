@@ -4,12 +4,7 @@ import argparse
 import logging
 import os
 
-from PIL import Image
-
-
-def dummy():
-    pass
-
+import resize
 
 logger = logging.getLogger(__name__)
 
@@ -39,9 +34,7 @@ def main(args):
 
             resized_path = os.path.join(args.output_root,
                                         recipe_key + '_thumbnail.jpg')
-            image = Image.open(image_path)
-            image.thumbnail((340, 230))
-            image.convert('RGB').save(resized_path, "JPEG")
+            resize.resize(image_path, resized_path)
             logging.info('Saved resized image to %s', resized_path)
 
 
