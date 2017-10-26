@@ -22,18 +22,23 @@ def configure_logging():
 
 def main(args):
     configure_logging()
+    logger.info('--input_root=%s', args.input_root)
+    logger.info('--output_root=%s', args.output_root)
     if not os.path.exists(args.output_root):
         os.makedirs(args.output_root)
-    for recipe_key in os.listdir(args.input_root):
-        image_path = os.path.join(args.input_root, recipe_key, 'main.jpg')
-        logging.info('Processing %s', recipe_key)
-        if not os.path.exists(image_path):
-            logging.warning('No image file, skipping')
+    for raw_filename in os.listdir(args.input_root):
+        raw_path = os.path.join(args.input_root, raw_filename)
+        if os.path.isdir(raw_path):
+            continue
+        logging.info('Processing %s', raw_path)
+        if not os.path.exists(raw_path):
+            logging.warning('Could not find image file: %s', raw_path)
             continue
 
+        basename, _ = os.path.splitext(raw_filename)
         resized_path = os.path.join(args.output_root,
-                                    recipe_key + '_thumbnail.jpg')
-        resize.resize(image_path, resized_path)
+                                    basename + '_thumbnail.jpg')
+        resize.resize(raw_path, resized_path)
         logging.info('Saved resized image to %s', resized_path)
 
 
