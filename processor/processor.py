@@ -46,6 +46,6 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(
         prog='KetoHub Thumbnail Processor',
         formatter_class=argparse.ArgumentDefaultsHelpFormatter)
-    parser.add_argument('-i', '--input_root')
-    parser.add_argument('-o', '--output_root')
+    parser.add_argument('-i', '--input_root', required=True)
+    parser.add_argument('-o', '--output_root', required=True)
     main(parser.parse_args())
