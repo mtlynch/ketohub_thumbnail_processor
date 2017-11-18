@@ -20,4 +20,5 @@ def resize(image_path, resized_path):
         borders = (0, int(delta / 2), x, int(y - (delta / 2)))
     image = image.crop(borders)
     image = image.resize((THUMBNAIL_WIDTH, THUMBNAIL_HEIGHT))
+    image = image.convert("RGB")
     image.save(resized_path, 'JPEG')
