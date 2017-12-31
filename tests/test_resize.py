@@ -3,6 +3,7 @@ import unittest
 import mock
 
 from processor import resize
+from processor import resize_job
 
 
 class ResizeTest(unittest.TestCase):
@@ -27,7 +28,7 @@ class ResizeTest(unittest.TestCase):
     def test_resize_when_no_crop_needed(self):
         self.mock_image.size = (680, 460)
 
-        resize.resize('large.jpg', 'small.jpg')
+        resize.resize(resize_job.Job('large.jpg', 'small.jpg', 340, 230))
 
         self.mock_image.crop.assert_called_with((0, 0, 680, 460))
         self.mock_cropped_image.resize.assert_called_with((340, 230))
@@ -37,7 +38,7 @@ class ResizeTest(unittest.TestCase):
     def test_resize_when_horizontal_crop_is_needed(self):
         self.mock_image.size = (690, 460)
 
-        resize.resize('large.jpg', 'small.jpg')
+        resize.resize(resize_job.Job('large.jpg', 'small.jpg', 340, 230))
 
         self.mock_image.crop.assert_called_with((5, 0, 685, 460))
         self.mock_cropped_image.resize.assert_called_with((340, 230))
@@ -47,7 +48,7 @@ class ResizeTest(unittest.TestCase):
     def test_resize_when_vertical_crop_is_needed(self):
         self.mock_image.size = (680, 470)
 
-        resize.resize('large.jpg', 'small.jpg')
+        resize.resize(resize_job.Job('large.jpg', 'small.jpg', 340, 230))
 
         self.mock_image.crop.assert_called_with((0, 5, 680, 465))
         self.mock_cropped_image.resize.assert_called_with((340, 230))
