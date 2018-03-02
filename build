@@ -24,4 +24,4 @@ pyflakes processor/*.py tests/*.py
 
 # Check docstrings for style consistency.
 PYTHONPATH=$PYTHONPATH:$(pwd)/third_party/docstringchecker \
-  pylint --reports=n processor tests
+  pylint --reports=n --rcfile=.pylintrc processor tests
