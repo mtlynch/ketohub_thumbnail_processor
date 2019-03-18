@@ -6,6 +6,7 @@ import os
 
 import resize
 import job_generator
+import supported_file
 
 logger = logging.getLogger(__name__)
 
@@ -35,7 +36,8 @@ def main(args):
 
 
 def _get_raw_image_paths(input_root):
-    return [os.path.join(input_root, f) for f in os.listdir(input_root)]
+    return filter(supported_file.is_supported,
+                  [os.path.join(input_root, f) for f in os.listdir(input_root)])
 
 
 def _process_jobs(jobs):
