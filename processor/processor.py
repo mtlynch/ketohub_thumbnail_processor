@@ -30,8 +30,9 @@ def main(args):
         os.makedirs(args.output_root)
 
     raw_paths = _get_raw_image_paths(args.input_root)
-    jobs = job_generator.generate(
-        raw_paths, args.output_root, widths=(680, 560, 340))
+    jobs = job_generator.generate(raw_paths,
+                                  args.output_root,
+                                  widths=(680, 560, 340))
     _process_jobs(jobs)
 
 
