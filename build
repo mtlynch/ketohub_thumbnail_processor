@@ -8,12 +8,18 @@ set -e
 # Echo commands to stdout.
 set -x
 
+# Location of app source files.
+SOURCE_DIR=processor
+
+# Location of unit tests.
+TEST_DIR=tests
+
 # Delete pyc files from previous builds.
 find . -name "*.pyc" -delete
 
 # Run unit tests and calculate code coverage.
 coverage run \
-  --source processor \
+  --source "$SOURCE_DIR" \
   -m unittest discover
 
 # Check that source has correct formatting.
@@ -26,8 +32,8 @@ yapf \
   --exclude=venv/*
 
 # Run static analysis for Python bugs/cruft.
-pyflakes processor/*.py tests/*.py
+pyflakes "${SOURCE_DIR}/" "${TEST_DIR}/"
 
 # Check docstrings for style consistency.
 PYTHONPATH=$PYTHONPATH:$(pwd)/third_party/docstringchecker \
-  pylint --reports=n --rcfile=.pylintrc processor tests
+  pylint --reports=n --rcfile=.pylintrc "$SOURCE_DIR" "$TEST_DIR"
