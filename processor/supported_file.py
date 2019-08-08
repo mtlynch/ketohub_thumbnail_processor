@@ -1,6 +1,6 @@
 import os
 
-_SUPPORTED_EXTENSIONS = set(['.jpg', '.jpeg', '.png'])
+_SUPPORTED_EXTENSIONS = set(['.jpg', '.jpeg', '.png', '.webp'])
 
 
 def is_supported(path):
